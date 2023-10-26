@@ -183,5 +183,56 @@ app.delete('/categories/:id', (req, res) => {
     });
 });
 
+// PUT With ID
+
+app.put('/items/:id', (req, res) => {
+    const itemIdUrl = req.params.id;
+    const {name, description, price, categorie_id} = req.body;
+
+    connection.query('UPDATE items SET name = ?, description = ?, price = ?, categorie_id = ? WHERE id = ?', [name, description, price, categorie_id, itemIdUrl], (error, results) => {
+        if (error) {
+            console.error('Error updating record:', error);
+            res.status(400);
+        } else if (results.affectedRows > 0) {
+            res.status(200).send('Formula updated successfully!');
+        } else {
+            res.status(404).send('Formula not found');
+        }
+    });
+});
+
+app.put('/categories/:id', (req, res) => {
+    const itemIdUrl = req.params.id;
+    const {name} = req.body;
+
+    connection.query('UPDATE categories SET name = ? WHERE id = ?', [name, itemIdUrl], (error, results) => {
+        if (error) {
+            console.error('Error updating record:', error);
+            res.status(400);
+        } else if (results.affectedRows > 0) {
+            res.status(200).send('Formula updated successfully!');
+        } else {
+            res.status(404).send('Formula not found');
+        }
+    });
+});
+
+app.put('/formulas/:id', (req, res) => {
+    const itemIdUrl = req.params.id;
+    const {name, prix_min, prix_max} = req.body;
+
+    connection.query('UPDATE formulas SET name = ?, prix_min = ?, prix_max = ? WHERE id = ?', [name, prix_min, prix_max, itemIdUrl], (error, results) => {
+        if (error) {
+            console.error('Error updating record:', error);
+            res.status(400);
+        } else if (results.affectedRows > 0) {
+            res.status(200).send('Formula updated successfully!');
+        } else {
+            res.status(404).send('Formula not found');
+        }
+    });
+});
+
+
 connection.connect()
 app.listen(3001,() => console.log(("Server is running")))
