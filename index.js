@@ -53,6 +53,47 @@ app.get('/formulas',(req,res) => {
     });
 })
 
+// GET with parameters
+
+app.get('/items/:id',(req,res) => {
+    const itemIdUrl = req.params.id;
+    connection.query('SELECT * FROM items WHERE id = ?', [itemIdUrl], (error, results) => {
+        if (error) {
+            console.error('Error retrieving table data:', error);
+            res.status(401);
+        } else {
+            res.json(results);
+            res.status(200);
+        }
+    });
+})
+
+app.get('/categories/:id',(req,res) => {
+    const itemIdUrl = req.params.id;
+    connection.query('SELECT * FROM categories WHERE id = ?', [itemIdUrl], (error, results) => {
+        if (error) {
+            console.error('Error retrieving table data:', error);
+            res.status(401);
+        } else {
+            res.json(results);
+            res.status(200);
+        }
+    });
+})
+
+app.get('/formulas/:id',(req,res) => {
+    const itemIdUrl = req.params.id;
+    connection.query('SELECT * FROM formulas WHERE id = ?', [itemIdUrl], (error, results) => {
+        if (error) {
+            console.error('Error retrieving table data:', error);
+            res.status(401);
+        } else {
+            res.json(results);
+            res.status(200);
+        }
+    });
+})
+
 // POST Method for the API
 
 app.post('/items',(req,res) => {
